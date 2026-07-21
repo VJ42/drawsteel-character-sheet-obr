@@ -11,21 +11,32 @@
     /* Bundler mode */
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
-    "verbatimModuleSyntax": true,
     "moduleDetection": "force",
     "noEmit": true,
     "jsx": "react-jsx",
 
     /* Path aliases */
     "paths": {
+      "@/logic/*": ["./src/forgesteel/logic/*"],
+      "@/models/*": ["./src/forgesteel/models/*"],
+      "@/enums/*": ["./src/forgesteel/enums/*"],
+      "@/utils/*": ["./src/forgesteel/utils/*"],
+      "@/data/*": ["./src/forgesteel/data/*"],
       "@/*": ["./src/*"]
     },
 
     /* Linting */
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "erasableSyntaxOnly": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src"]
+  "include": ["src"],
+  "exclude": [
+    "src/forgesteel/**/*.test.ts",
+    "src/forgesteel/**/*.test.tsx",
+    "src/forgesteel/logic/classic-sheet",
+    "src/forgesteel/logic/hero-sheet",
+    "src/forgesteel/logic/playbook-sheets",
+    "src/forgesteel/data/tip-data.ts"
+  ]
 }
