@@ -1,0 +1,61 @@
+/*
+ * Design tokens. Per docs/project-overview.md's "Design" section: a small,
+ * near-monochrome palette, following OBR's light/dark theme rather than a
+ * fixed brand palette (synced by src/obr-theme.ts, which toggles the
+ * data-theme attribute this file keys off).
+ *
+ * Hard rule: no hardcoded colors anywhere outside this file. Everything else
+ * (component CSS, inline styles) must reference these variables only.
+ */
+
+:root {
+	/* Color tokens - light theme (default) */
+	--text: #1c1c1c;
+	--bg: #ffffff;
+	--border: #d8d6d2;
+	--muted: #6b6b6b;
+	--accent: #6b4ba0;
+
+	/* Spacing scale */
+	--space-xs: 4px;
+	--space-sm: 8px;
+	--space-md: 16px;
+	--space-lg: 24px;
+	--space-xl: 32px;
+
+	/* Type scale */
+	--font-size-sm: 0.875rem;
+	--font-size-base: 1rem;
+	--font-size-lg: 1.25rem;
+	--font-size-xl: 1.75rem;
+
+	font-family: system-ui, 'Segoe UI', Roboto, sans-serif;
+	color: var(--text);
+	background: var(--bg);
+	color-scheme: light dark;
+}
+
+:root[data-theme='dark'] {
+	--text: #e7e5e2;
+	--bg: #17171a;
+	--border: #3a3a3f;
+	--muted: #9a9a9f;
+	--accent: #b09ad6;
+}
+
+/* Fallback for the brief window before src/obr-theme.ts sets data-theme */
+@media (prefers-color-scheme: dark) {
+	:root:not([data-theme]) {
+		--text: #e7e5e2;
+		--bg: #17171a;
+		--border: #3a3a3f;
+		--muted: #9a9a9f;
+		--accent: #b09ad6;
+	}
+}
+
+body {
+	margin: 0;
+	color: var(--text);
+	background: var(--bg);
+}

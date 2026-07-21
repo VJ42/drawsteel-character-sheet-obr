@@ -1,0 +1,105 @@
+/* Shared styles for Section, EditableText, EditableNumber, Picker, and
+ * ToggleChoice - the plumbing every panel reuses. No hardcoded colors here -
+ * only the CSS variables from src/styles/tokens.css. */
+
+.section {
+	border: 1px solid var(--border);
+	border-radius: 6px;
+	margin-bottom: var(--space-md);
+}
+
+.section-summary {
+	cursor: pointer;
+	padding: var(--space-sm) var(--space-md);
+	font-size: var(--font-size-lg);
+	font-weight: 600;
+}
+
+.section-body {
+	padding: 0 var(--space-md) var(--space-md);
+	display: flex;
+	flex-direction: column;
+	gap: var(--space-md);
+}
+
+.editable-text,
+.editable-number,
+.picker {
+	display: flex;
+	flex-direction: column;
+	gap: var(--space-xs);
+}
+
+.editable-text-label,
+.editable-number-label,
+.picker-label {
+	font-size: var(--font-size-sm);
+	color: var(--muted);
+}
+
+.editable-text-input,
+.editable-number-input,
+.picker-input {
+	font: inherit;
+	font-size: var(--font-size-base);
+	color: var(--text);
+	background: var(--bg);
+	border: 1px solid var(--border);
+	border-radius: 4px;
+	padding: var(--space-xs) var(--space-sm);
+}
+
+.editable-text-input:focus,
+.editable-number-input:focus,
+.picker-input:focus {
+	outline: 2px solid var(--accent);
+	outline-offset: -1px;
+}
+
+.editable-text-textarea {
+	min-height: 4.5em;
+	resize: vertical;
+}
+
+.toggle-choice {
+	border: 1px solid var(--border);
+	border-radius: 4px;
+	padding: var(--space-sm) var(--space-md);
+}
+
+.toggle-choice-legend {
+	font-size: var(--font-size-sm);
+	color: var(--muted);
+	padding: 0 var(--space-xs);
+}
+
+.toggle-choice-description {
+	color: var(--muted);
+	font-size: var(--font-size-sm);
+	margin: var(--space-xs) 0;
+}
+
+.toggle-choice-options {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	display: flex;
+	flex-direction: column;
+	gap: var(--space-sm);
+}
+
+.toggle-choice-option-label {
+	display: flex;
+	align-items: center;
+	gap: var(--space-xs);
+}
+
+.toggle-choice-option-label.disabled {
+	color: var(--muted);
+}
+
+.toggle-choice-option-description {
+	margin: var(--space-xs) 0 0 var(--space-lg);
+	font-size: var(--font-size-sm);
+	color: var(--muted);
+}
