@@ -87,13 +87,6 @@ export function HeaderPanel({ hero, sourcebooks, onHeroChange }: HeaderPanelProp
 		onHeroChange({ ...hero, ancestry: next });
 	}
 
-	function updateAncestryDescription(description: string) {
-		if (!hero.ancestry) {
-			return;
-		}
-		onHeroChange({ ...hero, ancestry: { ...hero.ancestry, description } });
-	}
-
 	function selectClass(picked: PickerOption) {
 		const full = fullClasses.find(c => c.id === picked.id);
 		const next = hero.class
@@ -107,13 +100,6 @@ export function HeaderPanel({ hero, sourcebooks, onHeroChange }: HeaderPanelProp
 		onHeroChange({ ...hero, class: next });
 	}
 
-	function updateClassDescription(description: string) {
-		if (!hero.class) {
-			return;
-		}
-		onHeroChange({ ...hero, class: { ...hero.class, description } });
-	}
-
 	function selectCareer(picked: PickerOption) {
 		const full = fullCareers.find(c => c.id === picked.id);
 		const next = hero.career
@@ -125,13 +111,6 @@ export function HeaderPanel({ hero, sourcebooks, onHeroChange }: HeaderPanelProp
 	function freeTextCareer(name: string) {
 		const next = hero.career ? { ...hero.career, name } : emptyCareer(name);
 		onHeroChange({ ...hero, career: next });
-	}
-
-	function updateCareerDescription(description: string) {
-		if (!hero.career) {
-			return;
-		}
-		onHeroChange({ ...hero, career: { ...hero.career, description } });
 	}
 
 	function selectSubclass(picked: PickerOption) {
@@ -165,53 +144,29 @@ export function HeaderPanel({ hero, sourcebooks, onHeroChange }: HeaderPanelProp
 		<Section title="Header">
 			<EditableText label="Name" value={hero.name} onChange={updateName} />
 
-			<div className="header-panel-field-group">
-				<Picker
-					label="Ancestry"
-					options={ancestries}
-					currentName={hero.ancestry?.name ?? ''}
-					onSelect={selectAncestry}
-					onFreeText={freeTextAncestry}
-				/>
-				<EditableText
-					label="Ancestry description"
-					value={hero.ancestry?.description ?? ''}
-					onChange={updateAncestryDescription}
-					multiline
-				/>
-			</div>
+			<Picker
+				label="Ancestry"
+				options={ancestries}
+				currentName={hero.ancestry?.name ?? ''}
+				onSelect={selectAncestry}
+				onFreeText={freeTextAncestry}
+			/>
 
-			<div className="header-panel-field-group">
-				<Picker
-					label="Class"
-					options={classes}
-					currentName={hero.class?.name ?? ''}
-					onSelect={selectClass}
-					onFreeText={freeTextClass}
-				/>
-				<EditableText
-					label="Class description"
-					value={hero.class?.description ?? ''}
-					onChange={updateClassDescription}
-					multiline
-				/>
-			</div>
+			<Picker
+				label="Class"
+				options={classes}
+				currentName={hero.class?.name ?? ''}
+				onSelect={selectClass}
+				onFreeText={freeTextClass}
+			/>
 
-			<div className="header-panel-field-group">
-				<Picker
-					label="Career"
-					options={careers}
-					currentName={hero.career?.name ?? ''}
-					onSelect={selectCareer}
-					onFreeText={freeTextCareer}
-				/>
-				<EditableText
-					label="Career description"
-					value={hero.career?.description ?? ''}
-					onChange={updateCareerDescription}
-					multiline
-				/>
-			</div>
+			<Picker
+				label="Career"
+				options={careers}
+				currentName={hero.career?.name ?? ''}
+				onSelect={selectCareer}
+				onFreeText={freeTextCareer}
+			/>
 
 			{hero.class && subclassOptions.length > 0 && (
 				<Picker
@@ -236,10 +191,11 @@ export function HeaderPanel({ hero, sourcebooks, onHeroChange }: HeaderPanelProp
 			))}
 
 			<p className="header-panel-note">
-				Changing Ancestry, Class, Career, or Subclass here only updates the name
-				and description shown above - it does not rebuild features, abilities,
-				or characteristics to match. Those stay as they were until a future
-				section addresses them, or until you re-import from Forge Steel.
+				Changing Ancestry, Class, Career, or Subclass here only updates that
+				field's own name and description (not shown, but stored on the hero) -
+				it does not rebuild features, abilities, or characteristics to match.
+				Those stay as they were until a future section addresses them, or until
+				you re-import from Forge Steel.
 			</p>
 		</Section>
 	);
