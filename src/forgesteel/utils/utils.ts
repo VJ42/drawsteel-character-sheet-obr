@@ -1,4 +1,11 @@
-import { Converter } from 'showdown';
+import Showdown from 'showdown';
+
+// showdown ships as a UMD/CJS bundle whose exports aren't statically
+// analyzable, so named imports (`import { Converter } from 'showdown'`)
+// resolve fine under bundler-based interop (Vite/esbuild) but fail under
+// Node's native ESM loader (used when running scripts/verify-pipeline.ts
+// via tsx). The default-import + destructure below works under both.
+const { Converter } = Showdown;
 
 // Stubbed for this port: the original also imported html2canvas, jspdf, and
 // modern-screenshot to support Forge Steel's PDF/image export feature. That
