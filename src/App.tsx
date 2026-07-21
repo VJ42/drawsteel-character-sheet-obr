@@ -3,6 +3,7 @@ import type { Hero } from '@/models/hero';
 import type { Sourcebook } from '@/models/sourcebook';
 import { SourcebookLogic } from '@/logic/sourcebook-logic';
 import { HeroUpdateLogic } from '@/logic/update/hero-update-logic';
+import { HeaderPanel } from './components/HeaderPanel';
 import './styles/tokens.css';
 import './App.css';
 
@@ -50,7 +51,7 @@ export default function App() {
 			<p>Load a .ds-hero file to see the sheet.</p>
 			<input type="file" accept=".ds-hero" id="hero-file-input" onChange={handleFileChange} />
 			<p id="status">{status}</p>
-			{hero && <p>Loaded {sourcebooks.length} sourcebooks. Panels land in the next commit.</p>}
+			{hero && <HeaderPanel hero={hero} sourcebooks={sourcebooks} onHeroChange={setHero} />}
 		</main>
 	);
 }

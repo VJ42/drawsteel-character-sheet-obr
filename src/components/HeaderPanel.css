@@ -1,0 +1,14 @@
+.header-panel-field-group {
+	display: flex;
+	flex-direction: column;
+	gap: var(--space-xs);
+}
+
+.header-panel-note {
+	font-size: var(--font-size-sm);
+	font-style: italic;
+	color: var(--muted);
+	border-top: 1px solid var(--border);
+	padding-top: var(--space-sm);
+	margin: 0;
+}
