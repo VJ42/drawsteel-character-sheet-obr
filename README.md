@@ -1,32 +1,34 @@
-# React + TypeScript + Vite
+# Draw Steel Character Sheet — Owlbear Rodeo Extension
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+An [Owlbear Rodeo](https://www.owlbear.rodeo/) extension that renders a full
+Draw Steel character sheet from a `.ds-hero` file exported by
+[Forge Steel](https://forgesteel.net).
 
-Currently, two official plugins are available:
+Status: early development. The hero-derivation engine is vendored and
+verified working; the sheet UI itself hasn't been built yet.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Development
 
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the Oxlint configuration
-
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
-
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
+```
+npm install
+npm run dev       # local dev server
+npm run build     # production build
+npm run verify    # runs the derivation engine against a sample hero,
+                   # prints derived stats to the terminal
 ```
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+## License
+
+This project is licensed under **GPL-3.0** — see [`LICENSE`](./LICENSE).
+
+It's GPL-3.0 because it incorporates code ported directly from
+[andyaiken/forgesteel](https://github.com/andyaiken/forgesteel), which is
+itself GPL-3.0 licensed. See [`CREDITS.md`](./CREDITS.md) and
+[`src/forgesteel/README.md`](./src/forgesteel/README.md) for full
+attribution and provenance details.
+
+## Draw Steel disclaimer
+
+This is an independent product published under the DRAW STEEL Creator
+License and is not affiliated with MCDM Productions, LLC.
+DRAW STEEL © 2024 MCDM Productions, LLC.
