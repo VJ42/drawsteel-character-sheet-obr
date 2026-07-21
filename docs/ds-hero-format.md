@@ -7,6 +7,14 @@ The data contract for this project. Verified against a real export
 `porting-notes.md` (the ported `HeroLogic` engine). For architecture decisions
 built on top of both, see `project-overview.md`.
 
+**Update from a later session:** this format is no longer just something we
+*parse* — it's now also the extension's own save/export format (see
+`project-overview.md`'s "Architecture decisions" and "Editing model"
+sections). A hero can originate three ways: imported from Forge Steel,
+re-imported to sync with Forge Steel, or built/edited entirely inside the
+extension and saved in this same shape. The shape and its quirks below apply
+regardless of origin.
+
 It is plain JSON with a renamed extension. Forge Steel also offers a PDF export;
 **PDF is not importable** — the importer must require the JSON/`.ds-hero` export.
 
@@ -28,6 +36,11 @@ That's why an unnamed, unequipped level 1 character is 120 KB. **Rendering the
 file as-is would show the player their level 7 features.** This filtering is
 solved too — see finding 2 and `porting-notes.md`; `HeroLogic.getFeatures()`
 does the filtering by level and selection state, we don't write it ourselves.
+
+This also matters for a character **built from scratch inside the extension**:
+we don't need to strip the unchosen options down before saving — the same
+shape, same filtering-at-render-time approach, works whether the data came
+from Forge Steel or from in-app editing.
 
 ### 2. No derived stat is stored — they are formulas, resolved elsewhere
 
@@ -69,6 +82,9 @@ describes the *code that reads it*.
 Stored as *damage taken* and *recoveries used*, not current values — so it stays
 valid even when max stamina changes. This maps 1:1 onto our session-state tier and
 makes the re-import merge rule trivial: **replace everything, preserve `state`.**
+(This merge rule applies specifically to *re-importing from Forge Steel* — see
+`project-overview.md`'s "Editing model" for how direct in-app editing of
+structural fields fits in alongside it.)
 
 Note `inventory`, `projects`, `titles` and `conditions` live under `state`, not in
 the structural data.
@@ -143,13 +159,15 @@ in the ported code already filters by level and resolves selections, returning
 the flat list of active features (35, in the sample, out of the hundreds present).
 This section exists so the data itself is understood — useful when the sheet UI
 needs to render a feature type Forge Steel's own components handle in a way we
-want to do differently, or when debugging an import that looks wrong.
+want to do differently, or when debugging an import that looks wrong, or when
+**editing** a feature type directly in-app (see "What's actually left to build").
 
 ### Selection is recorded three different ways in the raw data
 
 Worth knowing even though `HeroLogic` resolves it for us — this is *why* a
 generic "just read `.selected`" approach would fail if we ever touch raw features
-directly (e.g. building an in-app editor rather than just a viewer):
+directly, which we now do, since direct in-app editing means an editor (not
+just a viewer) needs to write to these shapes correctly:
 
 | Pattern | Used by | Shape |
 | --- | --- | --- |
@@ -176,6 +194,9 @@ Examples:
 
 Note `Skill Choice` has both `options` and `listOptions`, and a `selectAt` field
 (`"build"` seen) — selections can be deferred to later than character creation.
+For an in-app editor, writing a new selection means updating `data.selected`
+(or `data.selectedIDs`, depending on the pattern above) directly — there is no
+single generic "set the selected value" operation across all three patterns.
 
 ---
 
@@ -186,11 +207,25 @@ selections, recursing into nested features, deriving stamina/recoveries/speed) i
 **solved by the ported `HeroLogic`** — see `porting-notes.md`. What remains is:
 
 1. Parse JSON, call `HeroUpdateLogic.updateHero()` to migrate older exports
+   (only relevant when the source is an actual Forge Steel export — a
+   from-scratch in-app character has no upstream version to migrate from).
 2. Read off `HeroLogic.get*()` results and render them
 3. Preserve `state` on re-import (our own merge logic, not Forge Steel's — it has
    no concept of "re-import onto an existing hero")
-4. Decide what to do with feature types the sheet doesn't have a renderer for yet
-   (fall back to name + description is the safe default)
+4. **Direct in-app editing of any field** — structural or session-state (see
+   `project-overview.md`'s "Editing model" for the scope boundary: fix-up
+   editing of existing fields, not a rules-guided build wizard). This means
+   the sheet needs write paths into the shapes described above (three
+   different selection patterns, recursive feature nesting), not just read
+   paths — new work beyond what `HeroLogic` gives us, since `HeroLogic` is a
+   derivation/read layer, not an editor.
+5. Decide what to do with feature types the sheet doesn't have a renderer (or
+   editor) for yet (fall back to name + description is the safe default for
+   rendering; for editing, likely fall back to a raw/manual text entry or
+   "not yet editable" state — TBD when we get there).
+6. **Export**, in this same `.ds-hero` shape, as the extension's own backup/sync
+   mechanism — independent of whether the character originated from a Forge
+   Steel import.
 
 ---
 
@@ -198,6 +233,8 @@ selections, recursing into nested features, deriving stamina/recoveries/speed) i
 
 - Forge Steel treats some statically-assigned skills as free choices, so users can
   pick something the rules wouldn't allow. Imported data may not be rules-legal.
+  **This is now explicitly fine for in-app-edited/from-scratch characters too**
+  — direct editing doesn't enforce rules-legality (see `project-overview.md`).
 - Only one subclass is ever selected.
 - Some homebrew/optional selections have no representation in the export.
 - `name` can be an empty string.
