@@ -7,6 +7,7 @@ import type { Hero } from '@/models/hero';
 import { SourcebookLogic } from '@/logic/sourcebook-logic';
 import { HeroUpdateLogic } from '@/logic/update/hero-update-logic';
 import { HeroLogic } from '@/logic/hero-logic';
+import { renderFeatures } from './features-panel';
 
 interface VitalsRow {
 	label: string;
@@ -74,6 +75,14 @@ function mountApp(root: HTMLElement): void {
 		stability: buildVitalsRow(vitalsPanel, 'Stability')
 	};
 
+	const featuresHeading = document.createElement('h2');
+	featuresHeading.textContent = 'Features';
+	root.append(featuresHeading);
+
+	const featuresList = document.createElement('ul');
+	featuresList.id = 'features-list';
+	root.append(featuresList);
+
 	fileInput.addEventListener('change', async event => {
 		const input = event.target as HTMLInputElement;
 		const file = input.files?.[0];
@@ -98,7 +107,10 @@ function mountApp(root: HTMLElement): void {
 			rows.speed.valueEl.textContent = `${HeroLogic.getSpeed(hero).value}`;
 			rows.stability.valueEl.textContent = `${HeroLogic.getStability(hero)}`;
 
-			statusEl.textContent = `Loaded ${file.name}${hero.name ? ` (${hero.name})` : ''}.`;
+			const features = HeroLogic.getFeatures(hero);
+			renderFeatures(featuresList, features, hero);
+
+			statusEl.textContent = `Loaded ${file.name}${hero.name ? ` (${hero.name})` : ''} - ${features.length} active features.`;
 		} catch (err) {
 			statusEl.textContent = `Failed to load hero: ${err instanceof Error ? err.message : String(err)}`;
 		}

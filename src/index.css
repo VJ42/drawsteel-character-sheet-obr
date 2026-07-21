@@ -70,3 +70,55 @@ h1 {
 	font-weight: 600;
 	color: var(--text-h);
 }
+
+#features-list {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
+
+.feature-item {
+	border: 1px solid var(--border);
+	border-radius: 6px;
+	padding: 10px 14px;
+	text-align: left;
+}
+
+.feature-name {
+	font-weight: 600;
+	color: var(--text-h);
+}
+
+.feature-description {
+	margin-top: 4px;
+	white-space: pre-line;
+}
+
+.feature-meta {
+	font-size: 13px;
+	opacity: 0.75;
+	margin-top: 4px;
+}
+
+.feature-sublist,
+.power-roll-tiers {
+	list-style: none;
+	margin: 6px 0 0;
+	padding-left: 14px;
+	border-left: 2px solid var(--border);
+}
+
+.feature-ability-section {
+	margin-top: 6px;
+}
+
+.power-roll {
+	margin-top: 6px;
+}
+
+.power-roll-heading {
+	font-weight: 600;
+}
