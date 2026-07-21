@@ -1,0 +1,60 @@
+import { ClocktowerScriptType } from '@/enums/clocktower-script-type';
+import { ClocktowerTeam } from '@/enums/clocktower-team';
+
+export interface ClocktowerSpecial {
+	name: string;
+	type: string;
+	value?: string | number;
+}
+
+export interface ClocktowerJinx {
+	id: string;
+	reason: string;
+}
+
+export interface ClocktowerRole {
+	id: string;
+	name: string;
+	edition?: string;
+	image: string[];
+	team: ClocktowerTeam;
+	flavor: string;
+	ability: string;
+	firstNight?: number;
+	firstNightReminder?: string;
+	otherNight?: number;
+	otherNightReminder?: string;
+	reminders?: string[];
+	remindersGlobal?: string[];
+	setup?: boolean;
+	special?: ClocktowerSpecial[];
+	jinxes?: ClocktowerJinx[];
+}
+
+export interface ClocktowerRoleDetails {
+	description: string;
+}
+
+export interface ClocktowerCharacter {
+	role: ClocktowerRole;
+	details: ClocktowerRoleDetails;
+}
+
+export interface ClocktowerScriptMeta {
+	id: '_meta';
+	name: string;
+	author: string;
+	logo: string;
+	background: string | undefined;
+	hideTitle: boolean;
+	almanac: string;
+	bootlegger: string[] | undefined;
+	firstNight: string[];
+	otherNight: string[];
+}
+
+export interface ClocktowerScript {
+	type: ClocktowerScriptType;
+	meta: ClocktowerScriptMeta;
+	characters: ClocktowerCharacter[];
+}

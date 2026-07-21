@@ -1,0 +1,54 @@
+import { arcaneArcher } from '@/data/kits/arcane-archer';
+import { battlemind } from '@/data/kits/battlemind';
+import { boren } from '@/data/kits/stormwight/boren';
+import { cloakAndDagger } from '@/data/kits/cloak-and-dagger';
+import { corven } from '@/data/kits/stormwight/corven';
+import { dualWielder } from '@/data/kits/dual-wielder';
+import { guisarmier } from '@/data/kits/guisarmier';
+import { martialArtist } from '@/data/kits/martial-artist';
+import { mountain } from '@/data/kits/mountain';
+import { panther } from '@/data/kits/panther';
+import { pugilist } from '@/data/kits/pugilist';
+import { raden } from '@/data/kits/stormwight/raden';
+import { raider } from '@/data/kits/raider';
+import { ranger } from '@/data/kits/ranger';
+import { rapidFire } from '@/data/kits/rapid-fire';
+import { retiarius } from '@/data/kits/retiarius';
+import { shiningArmor } from '@/data/kits/shining-armor';
+import { sniper } from '@/data/kits/sniper';
+import { spellsword } from '@/data/kits/spellsword';
+import { stickAndRobe } from '@/data/kits/stick-and-robe';
+import { swashbuckler } from '@/data/kits/swashbuckler';
+import { swordAndBoard } from '@/data/kits/sword-and-board';
+import { vuken } from '@/data/kits/stormwight/vuken';
+import { warriorPriest } from '@/data/kits/warrior-priest';
+import { whirlwind } from '@/data/kits/whirlwind';
+
+export class KitData {
+	static arcaneArcher = arcaneArcher;
+	static battlemind = battlemind;
+	static cloakAndDagger = cloakAndDagger;
+	static dualWielder = dualWielder;
+	static guisarmier = guisarmier;
+	static martialArtist = martialArtist;
+	static mountain = mountain;
+	static panther = panther;
+	static pugilist = pugilist;
+	static raider = raider;
+	static ranger = ranger;
+	static rapidFire = rapidFire;
+	static retiarius = retiarius;
+	static shiningArmor = shiningArmor;
+	static sniper = sniper;
+	static spellsword = spellsword;
+	static stickAndRobe = stickAndRobe;
+	static swashbuckler = swashbuckler;
+	static swordAndBoard = swordAndBoard;
+	static warriorPriest = warriorPriest;
+	static whirlwind = whirlwind;
+
+	static boren = boren;
+	static corven = corven;
+	static raden = raden;
+	static vuken = vuken;
+}
