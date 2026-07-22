@@ -103,3 +103,32 @@
 	font-size: var(--font-size-sm);
 	color: var(--muted);
 }
+
+.toggle-choice-summary {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	gap: var(--space-sm);
+}
+
+.toggle-choice-summary-list {
+	list-style: disc;
+	margin: 0;
+	padding-left: var(--space-lg);
+}
+
+.toggle-choice-edit-button {
+	font: inherit;
+	font-size: var(--font-size-sm);
+	color: var(--accent);
+	background: none;
+	border: 1px solid var(--accent);
+	border-radius: 4px;
+	padding: var(--space-xs) var(--space-sm);
+	cursor: pointer;
+}
+
+.toggle-choice-edit-button:hover {
+	background: var(--accent);
+	color: var(--bg);
+}
